@@ -121,7 +121,10 @@ def create_visualizations(df: pd.DataFrame):
     axes[1, 1].set_xticklabels(day_order, rotation=45)
     
     plt.tight_layout()
-    plt.savefig('strava_running_analysis.png', dpi=300, bbox_inches='tight')
+    # Save to project root
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    output_path = os.path.join(project_root, 'strava_running_analysis.png')
+    plt.savefig(output_path, dpi=300, bbox_inches='tight')
     plt.show()
 
 
@@ -252,7 +255,10 @@ def generate_training_insights(df: pd.DataFrame):
 def main():
     """Main analysis function."""
     # You can modify this to point to your specific CSV file
-    csv_files = [f for f in os.listdir('.') if f.startswith('strava_running_data_') and f.endswith('.csv')]
+    # Look in parent directory (project root) for CSV files
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csv_files = [f for f in os.listdir(project_root) if f.startswith('strava_running_data_') and f.endswith('.csv')]
+    csv_files = [os.path.join(project_root, f) for f in csv_files]
     
     if not csv_files:
         print("No Strava data CSV files found. Please run strava_data_puller.py first.")

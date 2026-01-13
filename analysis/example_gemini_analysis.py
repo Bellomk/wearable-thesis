@@ -2,9 +2,15 @@
 Example script showing how to use GeminiConnector with Strava data.
 """
 
-from gemini_connector import GeminiConnector, analyze_strava_activity, analyze_strava_dataframe
-from strava_data_puller import StravaAPI, StravaConfig, setup_strava_config
-from strava_data_processing import StravaDataProcessor
+import sys
+import os
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from connectors.gemini_connector import GeminiConnector, analyze_strava_activity, analyze_strava_dataframe
+from strava.strava_data_puller import StravaAPI, StravaConfig, setup_strava_config
+from strava.strava_data_processing import StravaDataProcessor
 import os
 
 
@@ -14,8 +20,8 @@ def example_analyze_csv_file():
     # Set your Gemini API key (or set GEMINI_API_KEY environment variable)
     api_key = os.getenv('GEMINI_API_KEY') or 'ENTER-YOUR-GEMINI-API-KEY-HERE'
     
-    # Path to your CSV file
-    csv_file = 'strava_details_data_20250907_193806.csv'  # Change to your file name
+    # Path to your CSV file (relative to project root or absolute path)
+    csv_file = os.path.join('..', 'strava_details_data_20250907_193806.csv')  # Change to your file name
     
     # Create connector
     connector = GeminiConnector(api_key)
@@ -164,8 +170,8 @@ def example_custom_prompt():
     api_key = os.getenv('GEMINI_API_KEY') or 'ENTER-YOUR-GEMINI-API-KEY-HERE'
     connector = GeminiConnector(api_key)
     
-    # Your file path
-    file_path = 'strava_person_a_data_20250907_163239.csv'
+    # Your file path (relative to project root or absolute path)
+    file_path = os.path.join('..', 'strava_person_a_data_20250907_163239.csv')
     
     # Your custom system message
     system_message = "You are a data analyst specializing in fitness and health metrics."
@@ -216,13 +222,13 @@ def example_compare_with_chatgpt():
     
     # Try importing both connectors
     try:
-        from chatgpt_connector import ChatGPTConnector
+        from connectors.chatgpt_connector import ChatGPTConnector
         has_chatgpt = True
     except:
         has_chatgpt = False
     
-    # File path
-    csv_file = 'strava_details_data_20250907_193806.csv'
+    # File path (relative to project root or absolute path)
+    csv_file = os.path.join('..', 'strava_details_data_20250907_193806.csv')
     
     # Prompt
     prompt = """Analyze this running activity and provide:

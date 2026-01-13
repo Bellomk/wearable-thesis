@@ -3,8 +3,14 @@ Example script showing how to use stream_jsonl_processor functions
 to create JSONL files from Strava activity streams.
 """
 
-from strava_data_puller import StravaAPI, setup_strava_config
-from stream_jsonl_processor import (
+import sys
+import os
+
+# Add parent directory to path for imports when running as script
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from strava.strava_data_puller import StravaAPI, setup_strava_config
+from strava.stream_jsonl_processor import (
     sample_streams_at_intervals,
     create_streams_compact_json,
     create_activity_jsonl_object,
@@ -12,7 +18,6 @@ from stream_jsonl_processor import (
     combine_activities_to_jsonl,
     modify_heartrate_to_abnormal
 )
-import os
 
 
 def example_sample_single_activity_streams():
@@ -147,8 +152,9 @@ def example_create_jsonl_file():
         interval_seconds=5.0
     )
     
-    # Save to JSONL file
-    output_dir = "streams"
+    # Save to JSONL file (at project root)
+    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    output_dir = os.path.join(PROJECT_ROOT, "streams")
     os.makedirs(output_dir, exist_ok=True)
     output_file = os.path.join(output_dir, f"activities_{person_initial}_5s.jsonl")
     
@@ -213,8 +219,9 @@ def example_create_person_jsonl_file():
         interval_seconds=5.0
     )
     
-    # Save to JSONL file
-    output_dir = "streams"
+    # Save to JSONL file (at project root)
+    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    output_dir = os.path.join(PROJECT_ROOT, "streams")
     os.makedirs(output_dir, exist_ok=True)
     output_file = os.path.join(output_dir, f"person_{person_initial}_streams_5s.jsonl")
     
@@ -231,7 +238,8 @@ def example_modify_heartrate_to_abnormal():
     Example: Modify heartrate values in a JSONL file to abnormally high values.
     """
     # Default input file (you can change this)
-    input_file = os.path.join("streams", "person_An_streams_5s.jsonl")
+    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    input_file = os.path.join(PROJECT_ROOT, "streams", "person_An_streams_5s.jsonl")
     
     # Check if file exists
     if not os.path.exists(input_file):
@@ -241,7 +249,7 @@ def example_modify_heartrate_to_abnormal():
     
     # Create output filename
     base_name = os.path.splitext(os.path.basename(input_file))[0]
-    output_dir = "streams"
+    output_dir = os.path.join(PROJECT_ROOT, "streams")
     output_file = os.path.join(output_dir, f"{base_name}_abnormal.jsonl")
     
     print(f"Modifying heartrate values in: {input_file}")

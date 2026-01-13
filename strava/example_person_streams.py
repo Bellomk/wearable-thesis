@@ -3,12 +3,18 @@ Example script showing how to use get_person_activity_streams() to retrieve
 all stream data for activities belonging to a specific person.
 """
 
-from strava_data_puller import StravaAPI, setup_strava_config
-from strava_data_processing import StravaDataProcessor
+import sys
 import os
 
-# Create streams directory if it doesn't exist
-STREAMS_DIR = "streams"
+# Add parent directory to path for imports when running as script
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from strava.strava_data_puller import StravaAPI, setup_strava_config
+from strava.strava_data_processing import StravaDataProcessor
+
+# Create streams directory if it doesn't exist (at project root)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STREAMS_DIR = os.path.join(PROJECT_ROOT, "streams")
 os.makedirs(STREAMS_DIR, exist_ok=True)
 
 

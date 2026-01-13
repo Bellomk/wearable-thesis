@@ -12,7 +12,7 @@ from typing import List, Dict, Optional
 import os
 import re
 from dataclasses import dataclass
-from strava_data_processing import StravaDataProcessor
+from .strava_data_processing import StravaDataProcessor
 
 
 @dataclass
