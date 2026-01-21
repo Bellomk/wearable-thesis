@@ -107,7 +107,7 @@ Edit `analysis/example_deepseek_analysis.py` lines 19 & 20 and update:
 
 ```python
 DEEPSEEK_API_KEY = 'your-api-key-here'
-DEEPSEEK_BASE_URL = 'https://llm-keys.innkube.fim.uni-passau.de/'  # Your DeepSeek endpoint
+DEEPSEEK_BASE_URL = 'your-deepseek-url-here'  # Your DeepSeek endpoint
 ```
 
 Or set environment variables:
