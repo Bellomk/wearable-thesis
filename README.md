@@ -107,13 +107,13 @@ Edit `analysis/example_deepseek_analysis.py` lines 19 & 20 and update:
 
 ```python
 DEEPSEEK_API_KEY = 'your-api-key-here'
-DEEPSEEK_BASE_URL = 'your-deepseek-url-here'  # Your DeepSeek endpoint
+DEEPSEEK_BASE_URL = 'your-deepseek-base-url-here'  # Your DeepSeek endpoint
 ```
 
 Or set environment variables:
 ```bash
 export DEEPSEEK_API_KEY='your-api-key-here'
-export DEEPSEEK_BASE_URL='https://llm-keys.innkube.fim.uni-passau.de/'
+export DEEPSEEK_BASE_URL='your-deepseek-base-url-here'
 ```
 
 #### For ChatGPT Analysis:
@@ -192,7 +192,7 @@ from connectors.deepseek_connector import DeepSeekConnector
 # Initialize connector
 connector = DeepSeekConnector(
     api_key='your-api-key',
-    base_url='https://llm-keys.innkube.fim.uni-passau.de/'
+    base_url='your-deepseek-base-url-here'
 )
 
 # Analyze a JSONL file
